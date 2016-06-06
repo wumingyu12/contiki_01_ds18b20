@@ -1,5 +1,10 @@
 # contiki_01_ds18b20
 contiki 温度探头ds18b20
+硬件平台
+---------
+1.芯片使用cc2538
+
+2.开发板淘宝，资料百度云
 
 运行
 --------------------
@@ -16,3 +21,7 @@ mkdir myproject（注意这个文件夹名字可以改，但必须放到contiki�
 cd myproject
 
 git clone https://github.com/wumingyu12/contiki_01_ds18b20
+
+cd contiki_01_ds18b20
+
+chmod -x *.sh (给所有脚本添加权限)
