@@ -21,3 +21,7 @@ mkdir myproject（注意这个文件夹名字可以改，但必须放到contiki�
 cd myproject
 
 git clone https://github.com/wumingyu12/contiki_01_ds18b20
+
+cd contiki_01_ds18b20
+
+chmod -x *.sh (给所有脚本添加权限)
