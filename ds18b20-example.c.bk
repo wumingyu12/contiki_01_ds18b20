@@ -1,0 +1,94 @@
+
+#include "contiki.h"
+#include "contiki-conf.h"
+#include "dev/leds.h"
+#include "dev/watchdog.h"
+
+#include "dev/button-sensor.h"
+#include "dev/cc2538-sensors.h"
+#include "dev/ds18b20.h"
+
+#include <stdio.h>
+
+#define DS18B20
+
+
+
+/*---------------------------------------------------------------------------*/
+#define LOOP_INTERVAL       1*CLOCK_SECOND
+/*---------------------------------------------------------------------------*/
+
+static uint8_t ch[8];
+static uint8_t count=0;
+
+/*---------------------------------------------------------------------------*/
+/**
+ * @}
+ * @}
+ * @}
+ */
+
+
+/*---------------------------------------------------------------------------*/
+PROCESS(sensors_test_process, "Sensor Test Process");
+#if BUTTON_SENSOR_ON
+PROCESS(buttons_test_process, "Button Test Process");
+AUTOSTART_PROCESSES(&sensors_test_process, &buttons_test_process);
+#else
+AUTOSTART_PROCESSES(&sensors_test_process);
+#endif
+/*---------------------------------------------------------------------------*/
+#if BUTTON_SENSOR_ON
+PROCESS_THREAD(buttons_test_process, ev, data)
+{
+  struct sensors_sensor *sensor;
+
+ 
+
+  PROCESS_BEGIN();
+
+  while(1) {
+
+    PROCESS_WAIT_EVENT_UNTIL(ev == sensors_event);
+
+    /* If we woke up after a sensor event, inform what happened */
+    sensor = (struct sensors_sensor *)data;
+    if(sensor == &button_sensor) {
+    /*  PRINTF("Button Press\n"); */
+	count++;	
+
+      leds_toggle(LEDS_GREEN);
+
+    }
+  }
+
+  PROCESS_END();
+}
+#endif
+/*---------------------------------------------------------------------------*/
+PROCESS_THREAD(sensors_test_process, ev, data)
+{
+  static struct etimer et;
+
+  /* Sensor Values */
+  static int rv;
+
+  PROCESS_BEGIN();
+
+
+  /* Set an etimer. We take sensor readings when it expires and reset it. */
+  etimer_set(&et, CLOCK_SECOND * 2);
+
+
+  while(1) {
+
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+
+    ds18b20_read(ch);	
+    printf("Env Temp:%s\n", (char *)ch);
+    leds_toggle(LEDS_RED);
+    etimer_reset(&et);
+  }
+  PROCESS_END();
+}
+/*---------------------------------------------------------------------------*/
