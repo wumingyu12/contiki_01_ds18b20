@@ -25,3 +25,15 @@ git clone https://github.com/wumingyu12/contiki_01_ds18b20
 cd contiki_01_ds18b20
 
 chmod -x *.sh (给所有脚本添加权限)
+
+使用
+--------------
+./add.sh 添加必要的库到contiki中
+
+make all TARGET=cc2538dk
+
+恢复原样
+------------
+./clean.sh
+
+make clean
