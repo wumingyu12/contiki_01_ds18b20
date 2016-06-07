@@ -32,6 +32,18 @@ chmod -x *.sh (给所有脚本添加权限)
 
 make all TARGET=cc2538dk
 
+下载到开发板
+-----------------------
+1.开发板中同时按下select和reset键，不同与正常reset三色灯不会闪
+
+2.用usb转ttl连接
+
+3.sudo chmod 777 /dev/ttyUSB0
+
+4. ./download.sh (下载到开发板)
+
+5. 使用putty察看串口输出，如果要保存配置文件注意要用sudo
+
 恢复原样
 ------------
 ./clean.sh
