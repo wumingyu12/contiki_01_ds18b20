@@ -6,7 +6,7 @@ contiki 温度探头ds18b20
 
 2.开发板淘宝，资料百度云
 
-3.引脚为连接PB2在dev/ds18b20.h定义
+3.引脚为连接PB2在src/cc2538_dev/ds18b20.h	定义
 
 ```c
 #include "dev/gpio.h"
