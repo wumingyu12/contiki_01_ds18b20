@@ -6,6 +6,15 @@ contiki 温度探头ds18b20
 
 2.开发板淘宝，资料百度云
 
+3.引脚为连接PB2在dev/ds18b20.h定义
+
+```c
+#include "dev/gpio.h"
+
+#define DS18B20_PORT         	GPIO_B_NUM
+#define DS18B20_PIN		2	/**RF.11 - PB2 **/
+```
+
 运行
 --------------------
 wget https://github.com/contiki-os/contiki/archive/3.0.tar.gz
